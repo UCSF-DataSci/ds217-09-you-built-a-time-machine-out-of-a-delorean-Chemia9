@@ -1,0 +1,15 @@
+
+TODO: Document your timezone operations:
+- What timezone was your original data in?
+- How did you localize the data?
+- What timezone did you convert to?
+- What issues did you encounter with DST? (Note: Using UTC avoids DST ambiguity)
+- Include at least one example showing a datetime before and after conversion
+- Explain why UTC is recommended as the base timezone for storing temporal data
+The original data was naive I think. I localized the data to UTC using tz_localize('UTC') since UTC does not observe daylight saving time (DST). 
+This ensures that all timestamps are consistent and unambiguous. After localization, I converted the timestamps to US/Eastern timezone using tz_convert('US/Eastern').
+certain timestamps that fall within the DST transition period can be ambiguous or non-existent in local timezones.
+By storing data in UTC, we avoid these issues because UTC time remains constant throughout the year, so it's a convenient reference point.
+For example, a timestamp of '2023-03-12 10:00:00' in UTC converts to '2023-03-12 05:00:00' in US/Eastern before the DST transition, and '2023-03-12 06:00:00' after the transition.
+Using UTC as the base timezone for storing temporal data is recommended because it provides a stable and consistent reference, compared to if we were to change one local timezone to another which would
+require more conversions and could introduce errors.
